@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    android:paddingLeft="20dp"
+    android:gravity="center_vertical">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_app_logo"
+        android:layout_width="32dp"
+        android:layout_height="32dp" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_app_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        android:text="Twitter"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="#333333"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_app_lock"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:padding="16dp"
+        android:src="@drawable/unlock"/>
+</androidx.appcompat.widget.LinearLayoutCompat>
