@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.demo.goingapplock">
 
-    <uses-permission android:name="android.permission.REAL_GET_TASKS"
+    <uses-permission
+        android:name="android.permission.REAL_GET_TASKS"
         tools:ignore="ProtectedPermissions" />
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
-        tools:ignore="ProtectedPermissions"/>
+        tools:ignore="ProtectedPermissions" />
 
     <uses-permission
         android:name="android.permission.QUERY_ALL_PACKAGES"
@@ -29,6 +30,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GoingApplock">
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
         <activity
             android:name=".ac.MainAc"
             android:exported="true"
@@ -39,22 +44,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ac.HomeAc"
+        <activity
+            android:name=".ac.HomeAc"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ac.lock.PwdAc"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ac.lock.AppListAc"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ac.wifi.WifiScanAc"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ac.wifi.WifiScanResultAc"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ac.WebAc"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ac.lock.PwdAc"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ac.lock.AppListAc"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ac.wifi.WifiScanAc"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ac.wifi.WifiScanResultAc"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ac.WebAc"
+            android:screenOrientation="portrait" />
 
-        <service android:name=".servers.AppLockedServers"
-            android:exported="true"/>
+        <service
+            android:name=".servers.AppLockedServers"
+            android:exported="true" />
     </application>
 
 </manifest>

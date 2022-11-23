@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "439265004456",
+    "project_id": "going-applock-wifi-analyzer",
+    "storage_bucket": "going-applock-wifi-analyzer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439265004456:android:794b11dad6efc63df32b9d",
+        "android_client_info": {
+          "package_name": "com.goingapplock.wifi.analyzer.secure"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439265004456-8k4fei7k3b6jhaji2c0eh568j45v3jmc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAijoaJ7INh5jjiD5O9LBdDgcKyiBrrg7I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439265004456-8k4fei7k3b6jhaji2c0eh568j45v3jmc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
