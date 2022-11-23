@@ -82,6 +82,6 @@ object AppListManager {
         unLockedList.forEach {
             it.locked=false
         }
-        unLockedList.clear()
+        lockedList.clear()
     }
 }
