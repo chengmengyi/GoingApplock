@@ -36,8 +36,8 @@ class HomeAc:BaseAc() {
     override fun onView() {
         immersionBar.statusBarView(view_top).init()
         setListener()
-        tv_scan_result.isSelected=true
-        updateScanningUI()
+//        tv_scan_result.isSelected=true
+//        updateScanningUI()
     }
 
     private fun setListener(){
@@ -62,12 +62,12 @@ class HomeAc:BaseAc() {
                 startActivity(Intent(this,WifiScanAc::class.java))
             }
         }
-        iv_scan.setOnClickListener {
-            if(drawerIsOpen()){
-                return@setOnClickListener
-            }
-            startScan()
-        }
+//        iv_scan.setOnClickListener {
+//            if(drawerIsOpen()){
+//                return@setOnClickListener
+//            }
+//            startScan()
+//        }
         iv_set.setOnClickListener {
             if(!drawerIsOpen()){
                 drawer_layout.open()
@@ -107,67 +107,67 @@ class HomeAc:BaseAc() {
 
     private fun drawerIsOpen()=drawer_layout.isOpen
 
-    private fun startScan(){
-        if(scanning){
-            return
-        }
-        scanning=true
-        iv_scan.setImageResource(R.drawable.home7)
-        updateScanningUI()
-        startRotation()
-        startScanProgress()
-    }
-
-    private fun startScanProgress(){
-        ValueAnimator.ofInt(0, 100).apply {
-            duration=3000L
-            interpolator = LinearInterpolator()
-            addUpdateListener {
-                val progress = it.animatedValue as Int
-                tv_scan_progress.text="$progress%"
-                val wifiManager = applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
-                wifiHasPwd = if(isWifiEnabled(wifiManager)){
-                    checkWifiHasPwd(wifiManager, getWifiName(wifiManager))
-                }else{
-                    true
-                }
-            }
-            doOnEnd {
-                updateScanFinishUI()
-            }
-            start()
-        }
-    }
-
-    private fun startRotation(){
-        rotateAnimation= ObjectAnimator.ofFloat(iv_scan, "rotation", 0f, 360f).apply {
-            duration=500L
-            repeatCount= ValueAnimator.INFINITE
-            repeatMode= ObjectAnimator.RESTART
-            start()
-        }
-    }
-
-    private fun stopRotation(){
-        rotateAnimation?.cancel()
-        rotateAnimation=null
-        iv_scan.rotation=0f
-    }
-
-    private fun updateScanningUI(){
-        iv_start_scan.show(!scanning)
-        tv_scan_progress.show(scanning)
-    }
-
-    private fun updateScanFinishUI(){
-        stopRotation()
-        scanning=false
-        iv_start_scan.show(false)
-        tv_scan_progress.show(false)
-        tv_scan_result.text=if (wifiHasPwd) "Safe" else "Unsafe"
-        tv_scan_result.isSelected=wifiHasPwd
-        iv_scan.setImageResource(R.drawable.home8)
-    }
+//    private fun startScan(){
+//        if(scanning){
+//            return
+//        }
+//        scanning=true
+//        iv_scan.setImageResource(R.drawable.home7)
+//        updateScanningUI()
+//        startRotation()
+//        startScanProgress()
+//    }
+//
+//    private fun startScanProgress(){
+//        ValueAnimator.ofInt(0, 100).apply {
+//            duration=3000L
+//            interpolator = LinearInterpolator()
+//            addUpdateListener {
+//                val progress = it.animatedValue as Int
+//                tv_scan_progress.text="$progress%"
+//                val wifiManager = applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
+//                wifiHasPwd = if(isWifiEnabled(wifiManager)){
+//                    checkWifiHasPwd(wifiManager, getWifiName(wifiManager))
+//                }else{
+//                    true
+//                }
+//            }
+//            doOnEnd {
+//                updateScanFinishUI()
+//            }
+//            start()
+//        }
+//    }
+//
+//    private fun startRotation(){
+//        rotateAnimation= ObjectAnimator.ofFloat(iv_scan, "rotation", 0f, 360f).apply {
+//            duration=500L
+//            repeatCount= ValueAnimator.INFINITE
+//            repeatMode= ObjectAnimator.RESTART
+//            start()
+//        }
+//    }
+//
+//    private fun stopRotation(){
+//        rotateAnimation?.cancel()
+//        rotateAnimation=null
+//        iv_scan.rotation=0f
+//    }
+//
+//    private fun updateScanningUI(){
+//        iv_start_scan.show(!scanning)
+//        tv_scan_progress.show(scanning)
+//    }
+//
+//    private fun updateScanFinishUI(){
+//        stopRotation()
+//        scanning=false
+//        iv_start_scan.show(false)
+//        tv_scan_progress.show(false)
+//        tv_scan_result.text=if (wifiHasPwd) "Safe" else "Unsafe"
+//        tv_scan_result.isSelected=wifiHasPwd
+//        iv_scan.setImageResource(R.drawable.home8)
+//    }
 
     private fun toPwdAc(){
         AppListManager.getAppList(this)
