@@ -3,7 +3,11 @@ package com.demo.goingapplock.ac.lock
 import android.content.Intent
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.demo.goingapplock.GoingApp
 import com.demo.goingapplock.R
+import com.demo.goingapplock.ac.wifi.WifiScanAc
+import com.demo.goingapplock.ad.AdSpace
+import com.demo.goingapplock.ad.AdUtils
 import com.demo.goingapplock.adapter.KeyAdapter
 import com.demo.goingapplock.adapter.PwdAdapter
 import com.demo.goingapplock.base.BaseAc
@@ -28,11 +32,12 @@ class PwdAc:BaseAc() {
     override fun onView() {
         enums=intent.getSerializableExtra("enums") as PwdEnums
         immersionBar.statusBarView(view_top).init()
-        iv_back.setOnClickListener { finish() }
+        iv_back.setOnClickListener { onBackPressed() }
         tv_reset_pwd.setOnClickListener { showRestPwdDialog() }
         setTitleImage()
         setAdapter()
         resetPwdTextShow()
+        AdUtils.load(AdSpace.RETURN_I)
     }
 
     private fun clickKey(key:String){
@@ -73,7 +78,12 @@ class PwdAc:BaseAc() {
             }
             PwdEnums.CHECK_PWD->{
                 if(PwdManager.checkPwd(getPwdStr())){
-                    toAppListAc()
+                    if (!AdUtils.show(AdSpace.PASS_ENTER,this, adClose = {
+                            AdUtils.load(AdSpace.PASS_ENTER)
+                            if (GoingApp.isAppResume)   toAppListAc()
+                        })){
+                        toAppListAc()
+                    }
                 }else{
                     errorLogic()
                     setTitleImage(error = true)
@@ -156,5 +166,14 @@ class PwdAc:BaseAc() {
 
     private fun setErrorText(text:String){
         tv_pwd_error.text=text
+    }
+
+    override fun onBackPressed() {
+        if (!AdUtils.show(AdSpace.RETURN_I,this, adClose = {
+                AdUtils.load(AdSpace.RETURN_I)
+               finish()
+            })){
+            super.onBackPressed()
+        }
     }
 }

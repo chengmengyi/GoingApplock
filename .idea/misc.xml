@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/app_list_right_selector.xml" value="0.2984375" />
         <entry key="app/src/main/res/drawable/app_list_title_color_selector.xml" value="0.2984375" />
         <entry key="app/src/main/res/drawable/bg_185135_24dp.xml" value="0.2984375" />
+        <entry key="app/src/main/res/drawable/bg_ad_install.xml" value="0.32685185185185184" />
         <entry key="app/src/main/res/drawable/bg_app_list_title_false_left.xml" value="0.2984375" />
         <entry key="app/src/main/res/drawable/bg_app_list_title_false_right.xml" value="0.2984375" />
         <entry key="app/src/main/res/drawable/bg_app_list_title_true.xml" value="0.2984375" />
@@ -28,6 +29,7 @@
         <entry key="app/src/main/res/layout/activity_web.xml" value="0.2246376811594203" />
         <entry key="app/src/main/res/layout/activity_wifi_scan.xml" value="0.2318840579710145" />
         <entry key="app/src/main/res/layout/activity_wifi_scan_result.xml" value="0.2246376811594203" />
+        <entry key="app/src/main/res/layout/ad_home_layout_container.xml" value="0.3177083333333333" />
         <entry key="app/src/main/res/layout/dialog_notice.xml" value="0.23550724637681159" />
         <entry key="app/src/main/res/layout/dialog_set_pwd_success.xml" value="0.23550724637681159" />
         <entry key="app/src/main/res/layout/fragment_locked_list.xml" value="0.23550724637681159" />

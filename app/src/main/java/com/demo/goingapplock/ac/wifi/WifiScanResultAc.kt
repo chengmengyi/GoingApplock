@@ -4,6 +4,8 @@ import android.content.Intent
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.demo.goingapplock.R
+import com.demo.goingapplock.ad.AdSpace
+import com.demo.goingapplock.ad.AdUtils
 import com.demo.goingapplock.adapter.WifiResultInfoAdapter
 import com.demo.goingapplock.base.BaseAc
 import com.demo.goingapplock.bean.WifiInfoBean
@@ -17,13 +19,14 @@ class WifiScanResultAc:BaseAc() {
 
     override fun onView() {
         immersionBar.statusBarView(view_top).init()
-        iv_back.setOnClickListener { finish() }
+        iv_back.setOnClickListener { onBackPressed() }
         tv_scan.setOnClickListener {
             startActivity(Intent(this,WifiScanAc::class.java))
             finish()
         }
         setInfo()
         setAdapter()
+        AdUtils.load(AdSpace.RETURN_I)
     }
 
     private fun setInfo(){
@@ -44,6 +47,15 @@ class WifiScanResultAc:BaseAc() {
         rv_wifi_result.apply {
             layoutManager=LinearLayoutManager(this@WifiScanResultAc)
             adapter=wifiResultInfoAdapter
+        }
+    }
+
+    override fun onBackPressed() {
+        if (!AdUtils.show(AdSpace.RETURN_I,this, adClose = {
+                AdUtils.load(AdSpace.RETURN_I)
+                finish()
+            })){
+            super.onBackPressed()
         }
     }
 }

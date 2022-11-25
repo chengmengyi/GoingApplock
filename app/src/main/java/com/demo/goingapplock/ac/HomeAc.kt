@@ -2,20 +2,19 @@ package com.demo.goingapplock.ac
 
 import android.Manifest
 import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.net.wifi.WifiManager
 import android.provider.Settings
-import android.util.Log
-import android.view.animation.LinearInterpolator
-import androidx.core.animation.doOnEnd
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import com.demo.goingapplock.GoingApp
 import com.demo.goingapplock.R
 import com.demo.goingapplock.ac.lock.PwdAc
 import com.demo.goingapplock.ac.wifi.WifiScanAc
+import com.demo.goingapplock.ad.AdSpace
+import com.demo.goingapplock.ad.AdUtils
 import com.demo.goingapplock.base.BaseAc
 import com.demo.goingapplock.conf.GoingConf
 import com.demo.goingapplock.dialog.NoticeDialog
@@ -24,12 +23,13 @@ import com.demo.goingapplock.manager.*
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home_content.*
 import kotlinx.android.synthetic.main.activity_home_drawer.*
-import java.lang.Exception
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-class HomeAc:BaseAc() {
-    private var scanning=false
-    private var wifiHasPwd=false
-    private var rotateAnimation:ObjectAnimator?=null
+class HomeAc : BaseAc() {
+    private var scanning = false
+    private var wifiHasPwd = false
+    private var rotateAnimation: ObjectAnimator? = null
 
     override fun layoutId(): Int = R.layout.activity_home
 
@@ -40,27 +40,25 @@ class HomeAc:BaseAc() {
 //        updateScanningUI()
     }
 
-    private fun setListener(){
+    private fun setListener() {
         llc_app_lock.setOnClickListener {
-            if(drawerIsOpen()){
+            if (drawerIsOpen()) {
                 return@setOnClickListener
             }
-            if(!hasLookAppPermission()&&isNoOption()){
-                NoticeDialog(GoingConf.look){
+            if (!hasLookAppPermission() && isNoOption()) {
+                NoticeDialog(GoingConf.look) {
                     val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
                     startActivityForResult(intent, 100)
-                }.show(supportFragmentManager,"LookAppPermission")
-            }else{
+                }.show(supportFragmentManager, "LookAppPermission")
+            } else {
                 toPwdAc()
             }
         }
         llc_wifi.setOnClickListener {
-            if(drawerIsOpen()){
+            if (drawerIsOpen()) {
                 return@setOnClickListener
             }
-            if(checkLocationPermission()){
-                startActivity(Intent(this,WifiScanAc::class.java))
-            }
+            showIAd()
         }
 //        iv_scan.setOnClickListener {
 //            if(drawerIsOpen()){
@@ -69,25 +67,26 @@ class HomeAc:BaseAc() {
 //            startScan()
 //        }
         iv_set.setOnClickListener {
-            if(!drawerIsOpen()){
+            if (!drawerIsOpen()) {
                 drawer_layout.open()
             }
         }
 
-        llc_privacy.setOnClickListener { startActivity(Intent(this,WebAc::class.java)) }
+        llc_privacy.setOnClickListener { startActivity(Intent(this, WebAc::class.java)) }
 
         llc_contact.setOnClickListener {
             try {
                 val uri = Uri.parse("mailto:${GoingConf.EMAIL}")
                 val intent = Intent(Intent.ACTION_SENDTO, uri)
                 startActivity(intent)
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 toast("Contact us by email：${GoingConf.EMAIL}")
             }
         }
         llc_share.setOnClickListener {
             val pm = packageManager
-            val packageName=pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES).packageName
+            val packageName =
+                pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES).packageName
             val intent = Intent(Intent.ACTION_SEND)
             intent.type = "text/plain"
             intent.putExtra(
@@ -97,7 +96,10 @@ class HomeAc:BaseAc() {
             startActivity(Intent.createChooser(intent, "share"))
         }
         llc_update.setOnClickListener {
-            val packName = packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES).packageName
+            val packName = packageManager.getPackageInfo(
+                packageName,
+                PackageManager.GET_ACTIVITIES
+            ).packageName
             val intent = Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse("https://play.google.com/store/apps/details?id=$packName")
             }
@@ -105,7 +107,7 @@ class HomeAc:BaseAc() {
         }
     }
 
-    private fun drawerIsOpen()=drawer_layout.isOpen
+    private fun drawerIsOpen() = drawer_layout.isOpen
 
 //    private fun startScan(){
 //        if(scanning){
@@ -169,10 +171,10 @@ class HomeAc:BaseAc() {
 //        iv_scan.setImageResource(R.drawable.home8)
 //    }
 
-    private fun toPwdAc(){
+    private fun toPwdAc() {
         AppListManager.getAppList(this)
-        startActivity(Intent(this, PwdAc::class.java,).apply {
-            putExtra("enums",if(PwdManager.hasSetPwd()) PwdEnums.CHECK_PWD else PwdEnums.SET_PWD)
+        startActivity(Intent(this, PwdAc::class.java).apply {
+            putExtra("enums", if (PwdManager.hasSetPwd()) PwdEnums.CHECK_PWD else PwdEnums.SET_PWD)
         })
     }
 
@@ -188,8 +190,16 @@ class HomeAc:BaseAc() {
     }
 
     private fun checkLocationPermission(): Boolean {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) return true
-        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 101)
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) return true
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            101
+        )
         return false
     }
 
@@ -201,7 +211,52 @@ class HomeAc:BaseAc() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 101) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                startActivity(Intent(this,WifiScanAc::class.java))
+                startActivity(Intent(this, WifiScanAc::class.java))
+            }
+        }
+    }
+
+    private var isRefreshNativeAd = true
+    override fun onResume() {
+        super.onResume()
+        showNativeAd()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (!GoingApp.isAppResume){
+            isRefreshNativeAd = true
+        }
+    }
+
+    private fun showNativeAd() {
+        if (isRefreshNativeAd) {
+            lifecycleScope.launch {
+                delay(300)
+                AdUtils.load(AdSpace.HOME_NT)
+                while (isResume) {
+                    if (AdUtils.isHaveAd(AdSpace.HOME_NT)){
+                       val isShow= AdUtils.show(AdSpace.HOME_NT,this@HomeAc, nativeAdParent = ad_parent)
+                        if (isShow){
+                            AdUtils.load(AdSpace.HOME_NT)
+                            isRefreshNativeAd = false
+                            break
+                        }
+                    }
+                    delay(300)
+                }
+            }
+        }
+    }
+
+    private fun showIAd(){
+        AdUtils.load(AdSpace.WIFI_CLICK)
+        if (checkLocationPermission()) {
+            if (!AdUtils.show(AdSpace.WIFI_CLICK,this, adClose = {
+                    AdUtils.load(AdSpace.WIFI_CLICK)
+                    if (GoingApp.isAppResume)   startActivity(Intent(this, WifiScanAc::class.java))
+                })){
+                startActivity(Intent(this, WifiScanAc::class.java))
             }
         }
     }

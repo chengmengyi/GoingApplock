@@ -8,6 +8,7 @@ import com.gyf.immersionbar.ImmersionBar
 
 abstract class BaseAc:AppCompatActivity() {
     protected lateinit var immersionBar: ImmersionBar
+    var isResume=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,5 +34,15 @@ abstract class BaseAc:AppCompatActivity() {
         metrics.density = td
         metrics.scaledDensity = td
         metrics.densityDpi = dpi
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isResume=true
+    }
+
+    override fun onPause() {
+        super.onPause()
+        isResume=false
     }
 }
