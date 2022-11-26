@@ -9,7 +9,7 @@ const val LOCAL_ADC_LIST_GOING_STR="""
             "gaw_tp": "o",
             "gaw_wf": 1,
             "gaw_so": "admob",
-            "gaw_id": "cca-app-pub-7891246192306568/2657056182"
+            "gaw_id": "ca-app-pub-7891246192306568/2657056182"
         }
     ],
     "gaw_home_nt": [
