@@ -80,6 +80,7 @@ class PwdAc:BaseAc() {
                     if (!AdUtils.show(AdSpace.PASS_ENTER,this, adClose = {
                             AdUtils.load(AdSpace.PASS_ENTER)
                             if (GoingApp.isAppResume)   toAppListAc()
+                            finish()
                         })){
                         toAppListAc()
                     }

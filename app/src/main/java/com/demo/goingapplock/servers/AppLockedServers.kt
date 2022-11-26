@@ -83,7 +83,6 @@ class AppLockedServers : Service() {
                     delay(200)
                     val name = getTopAppName()
                     withContext(Dispatchers.Main) {
-                        "name-->$name".log()
                         if (!name.isNullOrEmpty()) {
                             if (name != showingApp) {
                                 if (AppListManager.locked(name) && Settings.canDrawOverlays(this@AppLockedServers)) {
