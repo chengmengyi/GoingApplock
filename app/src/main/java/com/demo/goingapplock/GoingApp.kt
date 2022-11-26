@@ -1,9 +1,13 @@
 package com.demo.goingapplock
 
 import android.app.Application
+import android.content.Intent
+import android.os.Build
 import com.demo.goingapplock.ad.AdListBean
 import com.demo.goingapplock.cache.GoingCache
 import com.demo.goingapplock.cache.MmkvData
+import com.demo.goingapplock.manager.AppListManager
+import com.demo.goingapplock.servers.AppLockedServers
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
 import com.google.firebase.ktx.Firebase
@@ -36,6 +40,12 @@ class GoingApp : Application() {
                 ).build()
         )
         initRemoteConfig()
+        AppListManager.getAppList(this)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(Intent(this, AppLockedServers::class.java))
+        }else{
+            startService(Intent(this, AppLockedServers::class.java))
+        }
     }
 
     private fun initRemoteConfig() {

@@ -1,6 +1,7 @@
 package com.demo.goingapplock.ac.lock
 
 import android.content.Intent
+import android.os.Build
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
@@ -8,6 +9,8 @@ import com.demo.goingapplock.R
 import com.demo.goingapplock.ac.HomeAc
 import com.demo.goingapplock.ac.lock.fragment.LockedListFragment
 import com.demo.goingapplock.ac.lock.fragment.UnlockedListFragment
+import com.demo.goingapplock.ad.AdSpace
+import com.demo.goingapplock.ad.AdUtils
 import com.demo.goingapplock.adapter.ViewPagerAdapter
 import com.demo.goingapplock.base.BaseAc
 import com.demo.goingapplock.interfaces.IAppLockInterface
@@ -25,8 +28,11 @@ class AppListAc:BaseAc(),IAppLockInterface{
         setIndex(0)
         setListener()
         setAdapter()
-
-        startService(Intent(this,AppLockedServers::class.java))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(Intent(this, AppLockedServers::class.java))
+        }else{
+            startService(Intent(this, AppLockedServers::class.java))
+        }
     }
 
     private fun setAdapter(){
@@ -58,7 +64,7 @@ class AppListAc:BaseAc(),IAppLockInterface{
         view_unlock.setOnClickListener {
             setIndex(1)
         }
-        iv_back.setOnClickListener { finishAc() }
+        iv_back.setOnClickListener { onBackPressed() }
     }
 
     private fun setIndex(index:Int){
@@ -93,15 +99,16 @@ class AppListAc:BaseAc(),IAppLockInterface{
         }
     }
 
-    override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode== KeyEvent.KEYCODE_BACK){
-            finishAc()
-            return true
-        }
-        return false
-    }
-
     private fun finishAc(){
         startActivity(Intent(this,HomeAc::class.java))
+    }
+
+    override fun onBackPressed() {
+        if (!AdUtils.show(AdSpace.RETURN_I,this, adClose = {
+                AdUtils.load(AdSpace.RETURN_I)
+                finishAc()
+            })){
+            finishAc()
+        }
     }
 }

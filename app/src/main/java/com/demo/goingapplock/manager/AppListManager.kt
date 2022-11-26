@@ -5,6 +5,7 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.util.ArraySet
 import com.demo.goingapplock.bean.AppBean
+import com.demo.goingapplock.log
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -67,6 +68,7 @@ object AppListManager {
 
     private fun getLockedAppNameList(){
         val app = MMKV.defaultMMKV().decodeStringSet("app")
+        "getLockedAppNameList$app".log()
         if (!app.isNullOrEmpty()){
             lockedAppNameList.clear()
             lockedAppNameList.addAll(app)

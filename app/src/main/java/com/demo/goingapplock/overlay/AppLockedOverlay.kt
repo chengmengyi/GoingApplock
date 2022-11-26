@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.demo.goingapplock.R
 import com.demo.goingapplock.adapter.KeyAdapter
 import com.demo.goingapplock.adapter.PwdAdapter
+import com.demo.goingapplock.log
 import com.demo.goingapplock.manager.PwdManager
 
 @SuppressLint("StaticFieldLeak")
@@ -123,6 +124,7 @@ object AppLockedOverlay {
     }
 
     fun showOverlay(){
+        "showOverlay---$showing".log()
         if (!showing){
             showing=true
             pwd.clear()
@@ -133,6 +135,7 @@ object AppLockedOverlay {
     }
 
     fun hideOverlay(){
+        "hideOverlay---$showing".log()
         if (showing){
             showing=false
             windowManager.removeView(view)

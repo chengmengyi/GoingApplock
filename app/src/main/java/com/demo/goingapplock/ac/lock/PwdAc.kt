@@ -37,7 +37,6 @@ class PwdAc:BaseAc() {
         setTitleImage()
         setAdapter()
         resetPwdTextShow()
-        AdUtils.load(AdSpace.RETURN_I)
     }
 
     private fun clickKey(key:String){
@@ -168,12 +167,4 @@ class PwdAc:BaseAc() {
         tv_pwd_error.text=text
     }
 
-    override fun onBackPressed() {
-        if (!AdUtils.show(AdSpace.RETURN_I,this, adClose = {
-                AdUtils.load(AdSpace.RETURN_I)
-               finish()
-            })){
-            super.onBackPressed()
-        }
-    }
 }

@@ -165,6 +165,7 @@ object AdUtils {
             adView.iconView?.visibility = View.VISIBLE
         }
         adView.setNativeAd(nativeAd)
+        adParent.removeAllViews()
         adParent.addView(adView)
     }
 
