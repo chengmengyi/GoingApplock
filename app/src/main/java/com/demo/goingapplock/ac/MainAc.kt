@@ -10,6 +10,7 @@ import com.demo.goingapplock.R
 import com.demo.goingapplock.ad.AdSpace
 import com.demo.goingapplock.ad.AdUtils
 import com.demo.goingapplock.base.BaseAc
+import com.demo.goingapplock.cache.GoingCache
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainAc : BaseAc() {
@@ -80,6 +81,7 @@ class MainAc : BaseAc() {
     }
 
     private fun loadAd() {
+        GoingCache.refreshLimitData()
         AdUtils.load(AdSpace.OPEN, retryNum = 1)
         AdUtils.load(AdSpace.HOME_NT)
         AdUtils.load(AdSpace.WIFI_CLICK)

@@ -49,4 +49,9 @@ object GoingCache {
     fun isAdLimit(): Boolean {
         return clickNum >= maxClickNum || showNum >= maxShowNum
     }
+
+    fun refreshLimitData(){
+        clickNum=MmkvData.getCurDayNum("click")
+        showNum = MmkvData.getCurDayNum("show")
+    }
 }
