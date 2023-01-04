@@ -67,6 +67,11 @@
         <activity
             android:name=".ac.WebAc"
             android:screenOrientation="portrait" />
+        <activity android:name=".ac.vpn.VpnListAc"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ac.vpn.VpnHomeAc"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/>
 
         <service
             android:name=".servers.AppLockedServers"

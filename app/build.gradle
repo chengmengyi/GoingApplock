@@ -73,4 +73,10 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:12.3.0'
 
     implementation 'com.google.android.gms:play-services-ads:21.3.0'
+
+    implementation 'com.lzy.net:okgo:3.0.4'
+
+    implementation  'io.github.scwang90:refresh-layout-kernel:2.0.5'
+    implementation  'io.github.scwang90:refresh-header-classics:2.0.5'
+    implementation 'com.android.installreferrer:installreferrer:2.2'
 }

@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.demo.goingapplock.GoingApp
 import com.demo.goingapplock.R
 import com.demo.goingapplock.ac.lock.PwdAc
+import com.demo.goingapplock.ac.vpn.VpnHomeAc
 import com.demo.goingapplock.ac.wifi.WifiScanAc
 import com.demo.goingapplock.ad.AdSpace
 import com.demo.goingapplock.ad.AdUtils
@@ -59,6 +60,12 @@ class HomeAc : BaseAc() {
                 return@setOnClickListener
             }
             showIAd()
+        }
+        llc_vpn.setOnClickListener {
+            if (drawerIsOpen()) {
+                return@setOnClickListener
+            }
+            startActivity(Intent(this,VpnHomeAc::class.java))
         }
 //        iv_scan.setOnClickListener {
 //            if(drawerIsOpen()){
