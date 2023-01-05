@@ -57,10 +57,12 @@
         android:background="@drawable/bg_ffffff_20dp"
         app:layout_constraintTop_toBottomOf="@id/tv_connect_status">
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_vpn_logo"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/fast"/>
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_vpn_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
@@ -77,7 +79,31 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/llc_vpn_info"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_connect_status"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/vpn_switch_btn"
+        app:layout_constraintTop_toTopOf="@id/iv_connect_center"
+        app:layout_constraintLeft_toLeftOf="@id/iv_connect_center"
+        app:layout_constraintRight_toRightOf="@id/iv_connect_center"
+        app:layout_constraintBottom_toBottomOf="@id/iv_connect_center"
+        />
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_connect_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0%"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toTopOf="@id/iv_connect_center"
+        app:layout_constraintLeft_toLeftOf="@id/iv_connect_center"
+        app:layout_constraintRight_toRightOf="@id/iv_connect_center"
+        app:layout_constraintBottom_toBottomOf="@id/iv_connect_center"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_click_tips"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
@@ -87,4 +113,16 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_connect_center"/>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ad_parent"
+        android:layout_width="match_parent"
+        android:layout_height="224dp"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:background="@drawable/ic_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

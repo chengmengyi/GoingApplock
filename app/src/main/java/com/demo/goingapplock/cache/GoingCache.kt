@@ -35,15 +35,23 @@ object GoingCache {
     fun getAdConfigure(space: AdSpace): ArrayList<AdBean> {
         maxClickNum = getAdConfigure().gawck
         maxShowNum = getAdConfigure().gawsh
+        val adList= arrayListOf<AdBean>()
         val list = when (space) {
             AdSpace.OPEN -> getAdConfigure().gaw_open
             AdSpace.HOME_NT -> getAdConfigure().gaw_home_nt
             AdSpace.WIFI_CLICK -> getAdConfigure().gaw_wifien_it
             AdSpace.PASS_ENTER -> getAdConfigure().gaw_pass_it
             AdSpace.RETURN_I -> getAdConfigure().gaw_return_it
+            AdSpace.VPN_HOME-> getAdConfigure().gaw_vpn_home
+            AdSpace.VPN_CONNECT-> getAdConfigure().gaw_vpn_i
+            AdSpace.VPN_RESULT_BOTTOM-> getAdConfigure().gaw_vpn_result
+            AdSpace.VPN_SERVER_BOTTOM-> getAdConfigure().gaw_vpn_server
         }
-        list.sortWith { o1, o2 -> o2.gaw_wf - o1.gaw_wf }
-        return list
+        if (!list.isNullOrEmpty()){
+            list.sortWith { o1, o2 -> o2.gaw_wf - o1.gaw_wf }
+            adList.addAll(list)
+        }
+        return adList
     }
 
     fun isAdLimit(): Boolean {

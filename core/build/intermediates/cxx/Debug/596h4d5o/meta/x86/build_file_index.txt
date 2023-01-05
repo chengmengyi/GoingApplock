@@ -1,2 +1,0 @@
-/Users/chengmengyi/testbird/GoingApplock/core/src/main/jni/Android.mk
-/Users/chengmengyi/testbird/GoingApplock/core/src/main/jni/Application.mk

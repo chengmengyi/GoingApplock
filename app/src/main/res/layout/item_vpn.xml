@@ -11,10 +11,12 @@
     android:gravity="center_vertical"
     android:background="@drawable/vpn_item_bg_selector">
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_vpn_logo"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:src="@drawable/fast"/>
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_vpn_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -26,6 +28,7 @@
         android:layout_marginRight="14dp"
         android:textColor="@drawable/vpn_name_color_selector"/>
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_vpn_sel"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:src="@drawable/vpn_list_selector"/>

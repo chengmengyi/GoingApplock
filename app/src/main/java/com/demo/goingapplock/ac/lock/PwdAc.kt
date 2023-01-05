@@ -150,6 +150,8 @@ class PwdAc:BaseAc() {
             }
             PwdEnums.SET_PWD_AGAIN->{
                 setErrorText("The two passwords are inconsistent")
+            }else->{
+
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.demo.goingapplock.cache
 
+import com.demo.goingapplock.conf.GoingConf
 import com.tencent.mmkv.MMKV
 import java.text.SimpleDateFormat
 import java.util.*
@@ -16,6 +17,31 @@ object MmkvData {
 
     fun saveCurDayNum(num: Int,extraKey:String) {
         mmkv.encode("${SimpleDateFormat("yyyy-mm-dd").format(Date(System.currentTimeMillis()))}_$extraKey", num)
+    }
+
+    fun readLocalReferrer()=MMKV.defaultMMKV().decodeString("referrer","")?:""
+
+    fun saveLocalReferrer(installReferrer: String) {
+        MMKV.defaultMMKV().encode("referrer",installReferrer)
+    }
+
+    fun isFirstLoad()=MMKV.defaultMMKV().decodeBool("first",true)
+
+    fun setFirstLoad(){
+        MMKV.defaultMMKV().encode("first",false)
+    }
+
+    fun randomPlanType(){
+        if (GoingConf.gawa_ab.isEmpty()){
+            val gawa_ab = MMKV.defaultMMKV().decodeString("gawa_ab") ?: ""
+            if (gawa_ab.isEmpty()){
+                val nextInt = Random().nextInt(100)
+                GoingConf.gawa_ab=if (nextInt>20) "B" else "A"
+                MMKV.defaultMMKV().encode("gawa_ab",gawa_ab)
+            }else{
+                GoingConf.gawa_ab=gawa_ab
+            }
+        }
     }
 
     class IntCache(private val extraKey: String = "") {

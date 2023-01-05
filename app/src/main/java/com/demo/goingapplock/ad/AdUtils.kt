@@ -176,4 +176,32 @@ object AdUtils {
     private fun logE(msg: String) {
         msg.loge("Going-Ad-Log")
     }
+
+    fun removeAllAdCache(){
+        removeAdCache(AdSpace.OPEN)
+        removeAdCache(AdSpace.HOME_NT)
+        removeAdCache(AdSpace.WIFI_CLICK)
+        removeAdCache(AdSpace.RETURN_I)
+        removeAdCache(AdSpace.PASS_ENTER)
+        removeAdCache(AdSpace.VPN_HOME)
+        removeAdCache(AdSpace.VPN_CONNECT)
+        removeAdCache(AdSpace.VPN_RESULT_BOTTOM)
+        removeAdCache(AdSpace.VPN_SERVER_BOTTOM)
+
+
+        load(AdSpace.OPEN, retryNum = 1)
+        load(AdSpace.HOME_NT)
+        load(AdSpace.WIFI_CLICK)
+        load(AdSpace.RETURN_I)
+        load(AdSpace.PASS_ENTER)
+        load(AdSpace.VPN_HOME)
+        load(AdSpace.VPN_CONNECT)
+        load(AdSpace.VPN_RESULT_BOTTOM)
+        load(AdSpace.VPN_SERVER_BOTTOM)
+    }
+
+    private fun removeAdCache(space: AdSpace) {
+        space.container.ad=null
+        space.isLoading=false
+    }
 }

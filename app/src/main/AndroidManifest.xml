@@ -72,6 +72,10 @@
         <activity android:name=".ac.vpn.VpnHomeAc"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
+        <activity android:name=".ac.vpn.VpnResultAc"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ac.scan_result.ScanResultAc"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".servers.AppLockedServers"

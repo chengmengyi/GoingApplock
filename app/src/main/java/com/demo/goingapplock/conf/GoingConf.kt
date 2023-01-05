@@ -10,4 +10,8 @@ object GoingConf {
 
     const val URL = "https://sites.google.com/view/goingapplockwifianalyzer/home"
     const val EMAIL = "whiteblack20210706@gmail.com"
+
+    var gawa_re="2"
+    var gawa_vpn_pop="1"
+    var gawa_ab=""
 }

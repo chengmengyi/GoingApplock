@@ -4,11 +4,13 @@ import android.content.Intent
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.demo.goingapplock.R
+import com.demo.goingapplock.ac.vpn.VpnHomeAc
 import com.demo.goingapplock.ad.AdSpace
 import com.demo.goingapplock.ad.AdUtils
 import com.demo.goingapplock.adapter.WifiResultInfoAdapter
 import com.demo.goingapplock.base.BaseAc
 import com.demo.goingapplock.bean.WifiInfoBean
+import com.demo.goingapplock.vpn.ConnectManager
 import kotlinx.android.synthetic.main.activity_wifi_scan_result.*
 
 class WifiScanResultAc:BaseAc() {
@@ -41,6 +43,20 @@ class WifiScanResultAc:BaseAc() {
             tv_wifi_result.text="Public network with little \nOr no security"
         }
         list.addAll(intent.getSerializableExtra("list") as ArrayList<WifiInfoBean>)
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!ConnectManager.connected()){
+            tv_to_vpn.text="no vpn connection"
+            tv_to_vpn.setOnClickListener {
+                startActivity(Intent(this, VpnHomeAc::class.java))
+            }
+        }else{
+            tv_to_vpn.text="with vpn connection"
+        }
     }
 
     private fun setAdapter(){

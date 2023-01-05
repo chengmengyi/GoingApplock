@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-xxhdpi/home_bg.xml" value="0.2984375" />
+        <entry key="app/src/main/res/drawable/ad_tag.xml" value="0.3338541666666667" />
         <entry key="app/src/main/res/drawable/app_list_left_selector.xml" value="0.2984375" />
         <entry key="app/src/main/res/drawable/app_list_right_selector.xml" value="0.2984375" />
         <entry key="app/src/main/res/drawable/app_list_title_color_selector.xml" value="0.2984375" />
@@ -16,6 +17,7 @@
         <entry key="app/src/main/res/drawable/bg_app_list_title_true_right.xml" value="0.2984375" />
         <entry key="app/src/main/res/drawable/bg_c6ded6_12dp.xml" value="0.2984375" />
         <entry key="app/src/main/res/drawable/bg_c6ded6_8dp.xml" value="0.2984375" />
+        <entry key="app/src/main/res/drawable/bg_ffffff_16dp.xml" value="0.3338541666666667" />
         <entry key="app/src/main/res/drawable/bg_ffffff_20dp.xml" value="0.3338541666666667" />
         <entry key="app/src/main/res/drawable/bg_ffffff_30dp.xml" value="0.3338541666666667" />
         <entry key="app/src/main/res/drawable/bg_ffffff_8dp.xml" value="0.2984375" />
@@ -28,6 +30,10 @@
         <entry key="app/src/main/res/drawable/result_status_selector.xml" value="0.32871794871794874" />
         <entry key="app/src/main/res/drawable/result_title_selector.xml" value="0.32871794871794874" />
         <entry key="app/src/main/res/drawable/result_vpn_name_color_selector.xml" value="0.32871794871794874" />
+        <entry key="app/src/main/res/drawable/scan_lock_selector.xml" value="0.3338541666666667" />
+        <entry key="app/src/main/res/drawable/scan_result_btn.xml" value="0.3338541666666667" />
+        <entry key="app/src/main/res/drawable/scan_vpn_selector.xml" value="0.3338541666666667" />
+        <entry key="app/src/main/res/drawable/scan_wifi_selector.xml" value="0.3338541666666667" />
         <entry key="app/src/main/res/drawable/vpn_item_bg_selector.xml" value="0.3338541666666667" />
         <entry key="app/src/main/res/drawable/vpn_list_selector.xml" value="0.3338541666666667" />
         <entry key="app/src/main/res/drawable/vpn_name_color_selector.xml" value="0.3338541666666667" />
@@ -37,6 +43,7 @@
         <entry key="app/src/main/res/layout/activity_home_drawer.xml" value="0.2246376811594203" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23550724637681159" />
         <entry key="app/src/main/res/layout/activity_pwd.xml" value="0.23550724637681159" />
+        <entry key="app/src/main/res/layout/activity_scan_result.xml" value="0.3177083333333333" />
         <entry key="app/src/main/res/layout/activity_vpn_home.xml" value="0.3177083333333333" />
         <entry key="app/src/main/res/layout/activity_vpn_list.xml" value="0.3177083333333333" />
         <entry key="app/src/main/res/layout/activity_vpn_result.xml" value="0.3177083333333333" />
@@ -44,13 +51,17 @@
         <entry key="app/src/main/res/layout/activity_wifi_scan.xml" value="0.2318840579710145" />
         <entry key="app/src/main/res/layout/activity_wifi_scan_result.xml" value="0.2246376811594203" />
         <entry key="app/src/main/res/layout/ad_home_layout_container.xml" value="0.3177083333333333" />
+        <entry key="app/src/main/res/layout/ad_result_layout_container.xml" value="0.3177083333333333" />
         <entry key="app/src/main/res/layout/dialog_notice.xml" value="0.23550724637681159" />
+        <entry key="app/src/main/res/layout/dialog_notice_ir.xml" value="0.3177083333333333" />
         <entry key="app/src/main/res/layout/dialog_set_pwd_success.xml" value="0.23550724637681159" />
+        <entry key="app/src/main/res/layout/dialog_vpn.xml" value="0.3177083333333333" />
         <entry key="app/src/main/res/layout/fragment_locked_list.xml" value="0.23550724637681159" />
         <entry key="app/src/main/res/layout/fragment_unlocked_list.xml" value="0.23550724637681159" />
         <entry key="app/src/main/res/layout/item_app.xml" value="0.23550724637681159" />
         <entry key="app/src/main/res/layout/item_key.xml" value="0.23550724637681159" />
         <entry key="app/src/main/res/layout/item_pwd.xml" value="0.23550724637681159" />
+        <entry key="app/src/main/res/layout/item_scan_result.xml" value="0.3177083333333333" />
         <entry key="app/src/main/res/layout/item_vpn.xml" value="0.3177083333333333" />
         <entry key="app/src/main/res/layout/item_wifi_result.xml" value="0.2246376811594203" />
         <entry key="app/src/main/res/layout/overlay_pwd.xml" value="0.2318840579710145" />

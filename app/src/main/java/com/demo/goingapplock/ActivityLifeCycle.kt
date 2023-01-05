@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
+import com.demo.goingapplock.GoingApp.Companion.appFront
 import com.demo.goingapplock.GoingApp.Companion.isAppResume
 import com.demo.goingapplock.ac.MainAc
 import com.google.android.gms.ads.AdActivity
@@ -25,10 +26,15 @@ class ActivityLifeCycle : Application.ActivityLifecycleCallbacks {
         if (onBackgroundTime != -1L && System.currentTimeMillis() - onBackgroundTime >= 3000L) {
             onBackgroundTime = -1L
             if ((activity !is MainAc)) {
-                activity.startActivity(Intent(activity,MainAc::class.java))
+                activity.startActivity(Intent(activity,MainAc::class.java).apply {
+                    putExtra("isHot",true)
+                })
             }
         }
         add()
+        if (num==1){
+            appFront=true
+        }
     }
 
     override fun onActivityResumed(activity: Activity) {
@@ -44,6 +50,9 @@ class ActivityLifeCycle : Application.ActivityLifecycleCallbacks {
     override fun onActivityStopped(activity: Activity) {
         "onActivityStopped $activity".log()
         reduce()
+        if (num<=0){
+            appFront=false
+        }
         if (activity is AdActivity) {
             CoroutineScope(Dispatchers.Main).launch {
                 delay(2500L)

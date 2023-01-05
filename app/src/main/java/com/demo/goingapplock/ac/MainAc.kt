@@ -7,10 +7,17 @@ import android.view.animation.LinearInterpolator
 import androidx.core.animation.doOnEnd
 import com.blankj.utilcode.util.ActivityUtils
 import com.demo.goingapplock.R
+import com.demo.goingapplock.ac.vpn.VpnHomeAc
 import com.demo.goingapplock.ad.AdSpace
 import com.demo.goingapplock.ad.AdUtils
 import com.demo.goingapplock.base.BaseAc
 import com.demo.goingapplock.cache.GoingCache
+import com.demo.goingapplock.cache.MmkvData
+import com.demo.goingapplock.conf.GoingConf
+import com.demo.goingapplock.dialog.VpnDialog
+import com.demo.goingapplock.isBuyUser
+import com.demo.goingapplock.manager.PointManager
+import com.demo.goingapplock.vpn.ConnectManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainAc : BaseAc() {
@@ -38,17 +45,80 @@ class MainAc : BaseAc() {
             }
             doOnEnd {
                 if (!isShowAd)
-                    toHomeAc()
+                    checkPlanType()
             }
             start()
         }
     }
 
-    private fun toHomeAc() {
-        val activityExistsInStack = ActivityUtils.isActivityExistsInStack(HomeAc::class.java)
-        if (!activityExistsInStack) {
-            startActivity(Intent(this, HomeAc::class.java))
+    private fun checkPlanType(){
+        if (MmkvData.isFirstLoad()){
+            MmkvData.setFirstLoad()
+            toHomeAc()
+            PointManager.setUser("a")
+            return
         }
+        if (!MmkvData.readLocalReferrer().isBuyUser()){
+            doPlanA()
+            return
+        }
+        MmkvData.randomPlanType()
+        PointManager.setUser(GoingConf.gawa_ab.toLowerCase())
+        if (ConnectManager.connected()){
+            toHomeAc()
+        }else{
+            if (GoingConf.gawa_ab=="A"){
+                doPlanA()
+            }else{
+                doPlanB()
+            }
+        }
+    }
+
+    private fun doPlanA(){
+        val isHot = intent.getBooleanExtra("isHot", false)
+        if (GoingConf.gawa_vpn_pop=="1"&&canShowVpnDialog()){
+            showVpnDialog()
+            return
+        }
+        if (GoingConf.gawa_vpn_pop=="2"&&canShowVpnDialog()&&!isHot){
+            showVpnDialog()
+            return
+        }
+        toHomeAc()
+    }
+
+    private fun doPlanB(){
+        startActivity(Intent(this,VpnHomeAc::class.java).apply {
+            putExtra("auto",true)
+        })
+        finish()
+    }
+
+    private fun canShowVpnDialog():Boolean{
+        when(GoingConf.gawa_re){
+            "1"->return true
+            "2"->return MmkvData.readLocalReferrer().isBuyUser()
+            "3"->{
+                val readLocalReferrer = MmkvData.readLocalReferrer()
+                return readLocalReferrer.contains("facebook")||readLocalReferrer.contains("fb4a")
+            }
+        }
+        return false
+    }
+
+    private fun showVpnDialog(){
+        VpnDialog{
+            if (it){
+                doPlanB()
+            }else{
+                toHomeAc()
+            }
+        }.show(supportFragmentManager,"VpnDialog")
+    }
+
+    private fun toHomeAc() {
+        startActivity(Intent(this, HomeAc::class.java))
         finish()
     }
 
@@ -87,11 +157,15 @@ class MainAc : BaseAc() {
         AdUtils.load(AdSpace.WIFI_CLICK)
         AdUtils.load(AdSpace.RETURN_I)
         AdUtils.load(AdSpace.PASS_ENTER)
+        AdUtils.load(AdSpace.VPN_HOME)
+        AdUtils.load(AdSpace.VPN_CONNECT)
+        AdUtils.load(AdSpace.VPN_RESULT_BOTTOM)
+        AdUtils.load(AdSpace.VPN_SERVER_BOTTOM)
     }
 
     private fun showAd(): Boolean {
         return AdUtils.show(AdSpace.OPEN, this, adClose = {
-            toHomeAc()
+            checkPlanType()
         })
     }
 }

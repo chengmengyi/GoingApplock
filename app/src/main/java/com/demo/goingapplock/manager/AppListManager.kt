@@ -77,6 +77,8 @@ object AppListManager {
 
     fun locked(name:String)=lockedAppNameList.contains(name)
 
+    fun allAppSize()= lockedList.size+ unLockedList.size
+
     fun reset(){
         lockedAppNameList.clear()
         saveLockedAppNameList()
