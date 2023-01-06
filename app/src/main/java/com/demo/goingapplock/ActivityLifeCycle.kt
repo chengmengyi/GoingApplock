@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.demo.goingapplock.GoingApp.Companion.appFront
 import com.demo.goingapplock.GoingApp.Companion.isAppResume
+import com.demo.goingapplock.GoingApp.Companion.isAuthOverlayPermission
 import com.demo.goingapplock.ac.MainAc
 import com.google.android.gms.ads.AdActivity
 import kotlinx.coroutines.CoroutineScope
@@ -25,7 +26,7 @@ class ActivityLifeCycle : Application.ActivityLifecycleCallbacks {
         "onActivityStarted $activity".log()
         if (onBackgroundTime != -1L && System.currentTimeMillis() - onBackgroundTime >= 3000L) {
             onBackgroundTime = -1L
-            if ((activity !is MainAc)) {
+            if ((activity !is MainAc)&&!isAuthOverlayPermission) {
                 activity.startActivity(Intent(activity,MainAc::class.java).apply {
                     putExtra("isHot",true)
                 })

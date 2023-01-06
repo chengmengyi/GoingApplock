@@ -35,6 +35,7 @@ class GoingApp : Application() {
         var isAppResume = false
         var appFront=true
         var isIRUser=false
+        var isAuthOverlayPermission=false
         lateinit var mApp: GoingApp
             private set
     }

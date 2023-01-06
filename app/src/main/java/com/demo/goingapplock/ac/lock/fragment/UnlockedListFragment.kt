@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.demo.goingapplock.GoingApp.Companion.isAuthOverlayPermission
 import com.demo.goingapplock.R
 import com.demo.goingapplock.adapter.AppListAdapter
 import com.demo.goingapplock.bean.AppBean
@@ -50,6 +51,7 @@ class UnlockedListFragment:Fragment() {
     private fun clickItem(appBean: AppBean){
         if(!hasOverlayPermission(requireContext())){
             NoticeDialog(GoingConf.overlay){
+                isAuthOverlayPermission=true
                 val intent= Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:${requireContext().packageName}"))
                 startActivityForResult(intent, 101)
             }.show(childFragmentManager,"OverlayPermission")
@@ -65,6 +67,11 @@ class UnlockedListFragment:Fragment() {
             layoutManager= LinearLayoutManager(requireContext())
             adapter=appListAdapter
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isAuthOverlayPermission=false
     }
 
     fun updateUnlockedList(){

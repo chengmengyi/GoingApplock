@@ -54,11 +54,11 @@ class MainAc : BaseAc() {
     private fun checkPlanType(){
         if (MmkvData.isFirstLoad()){
             MmkvData.setFirstLoad()
-            toHomeAc()
-            PointManager.setUser("a")
+            showVpnDialog()
             return
         }
         if (!MmkvData.readLocalReferrer().isBuyUser()){
+            PointManager.setUser("a")
             doPlanA()
             return
         }
@@ -77,11 +77,11 @@ class MainAc : BaseAc() {
 
     private fun doPlanA(){
         val isHot = intent.getBooleanExtra("isHot", false)
-        if (GoingConf.gawa_vpn_pop=="1"&&canShowVpnDialog()){
+        if (GoingConf.gawa_vpn_pop=="1"&&canShowVpnDialog()&&ConnectManager.disconnected()){
             showVpnDialog()
             return
         }
-        if (GoingConf.gawa_vpn_pop=="2"&&canShowVpnDialog()&&!isHot){
+        if (GoingConf.gawa_vpn_pop=="2"&&canShowVpnDialog()&&!isHot&&ConnectManager.disconnected()){
             showVpnDialog()
             return
         }

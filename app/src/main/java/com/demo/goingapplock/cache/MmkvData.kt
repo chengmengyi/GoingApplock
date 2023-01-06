@@ -19,7 +19,7 @@ object MmkvData {
         mmkv.encode("${SimpleDateFormat("yyyy-mm-dd").format(Date(System.currentTimeMillis()))}_$extraKey", num)
     }
 
-    fun readLocalReferrer()=MMKV.defaultMMKV().decodeString("referrer","")?:""
+    fun readLocalReferrer()= MMKV.defaultMMKV().decodeString("referrer","")?:""
 
     fun saveLocalReferrer(installReferrer: String) {
         MMKV.defaultMMKV().encode("referrer",installReferrer)

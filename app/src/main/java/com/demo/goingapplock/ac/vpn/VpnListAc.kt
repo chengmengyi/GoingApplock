@@ -1,6 +1,7 @@
 package com.demo.goingapplock.ac.vpn
 
 import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.demo.goingapplock.R
@@ -51,7 +52,7 @@ class VpnListAc: BaseAc() {
     private fun showDisconnectDialog(clickBean: VpnBean){
         NoticeDialog("do you confirm to reconnect?"){
             clickVpnFinish("disconnect",clickBean)
-        }
+        }.show(supportFragmentManager,"NoticeDialog")
     }
 
     private fun clickVpnFinish(result:String,clickBean: VpnBean){

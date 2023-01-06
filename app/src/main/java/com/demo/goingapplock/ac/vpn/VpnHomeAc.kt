@@ -60,7 +60,7 @@ class VpnHomeAc:BaseAc(), IConnectInterface {
         immersionBar.statusBarView(view_top).init()
         if (isIRUser){
             IRNoticeDialog{
-                finish()
+                onBackPressed()
             }.show(supportFragmentManager,"IRNoticeDialog")
             return
         }
@@ -79,7 +79,7 @@ class VpnHomeAc:BaseAc(), IConnectInterface {
             }
         }
         iv_back.setOnClickListener {
-            if (canClick){ onBackPressed() }
+            onBackPressed()
         }
 
         autoConnect=intent.getBooleanExtra("auto",false)
@@ -89,6 +89,7 @@ class VpnHomeAc:BaseAc(), IConnectInterface {
     }
 
     private fun clickConnectBtn(){
+        if (isIRUser) return
         AdUtils.load(AdSpace.VPN_CONNECT)
         AdUtils.load(AdSpace.VPN_RESULT_BOTTOM)
         if (!canClick)return
@@ -302,11 +303,11 @@ class VpnHomeAc:BaseAc(), IConnectInterface {
     }
 
     override fun onBackPressed() {
-        if (ActivityUtils.isActivityExistsInStack(HomeAc::class.java)){
-            finish()
-        }else{
+        if (!canClick) return
+        if (!ActivityUtils.isActivityExistsInStack(HomeAc::class.java)){
             startActivity(Intent(this,HomeAc::class.java))
         }
+        finish()
     }
 
     override fun onDestroy() {

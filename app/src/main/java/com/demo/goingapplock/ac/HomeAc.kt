@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.demo.goingapplock.GoingApp
+import com.demo.goingapplock.GoingApp.Companion.isAuthOverlayPermission
 import com.demo.goingapplock.R
 import com.demo.goingapplock.ac.lock.PwdAc
 import com.demo.goingapplock.ac.scan_result.ScanResultAc
@@ -55,6 +56,7 @@ class HomeAc : BaseAc() {
             }
             if (!hasLookAppPermission() && isNoOption()) {
                 NoticeDialog(GoingConf.look) {
+                    isAuthOverlayPermission=true
                     val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
                     startActivityForResult(intent, 100)
                 }.show(supportFragmentManager, "LookAppPermission")
@@ -210,6 +212,7 @@ class HomeAc : BaseAc() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 100) {
+            isAuthOverlayPermission=false
             if (hasLookAppPermission()) {
                 toPwdAc()
             } else {
@@ -248,6 +251,7 @@ class HomeAc : BaseAc() {
     private var isRefreshNativeAd = true
     override fun onResume() {
         super.onResume()
+        isAuthOverlayPermission=false
         showNativeAd()
     }
 
