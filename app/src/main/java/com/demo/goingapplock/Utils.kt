@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.util.Log
 import com.tencent.mmkv.MMKV
+import java.lang.Exception
 
 fun String.log(tag: String="GoingApplock-Log") {
     if (!BuildConfig.DEBUG) return
@@ -13,6 +14,15 @@ fun String.log(tag: String="GoingApplock-Log") {
 fun String.loge(tag: String="GoingApplock-Log") {
     if (!BuildConfig.DEBUG) return
     Log.e(tag, this)
+}
+
+fun str2int(str:String):Int{
+    try {
+        return str.toInt()
+    }catch (e:Exception){
+
+    }
+    return 0
 }
 
 fun getVpnLogo(coun:String)=when(coun){

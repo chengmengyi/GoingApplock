@@ -164,7 +164,7 @@ class VpnHomeAc:BaseAc(), IConnectInterface {
         if (b){
             if (connect){
                 PointManager.point("gawa_vpn_succ")
-                if (GoingConf.gawa_ab=="B"&&autoConnect){
+                if (GoingConf.planType=="B"&&autoConnect){
                     AdUtils.removeAllAdCache()
                 }
                 setConnectedInfo()

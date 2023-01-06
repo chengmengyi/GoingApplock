@@ -13,5 +13,6 @@ object GoingConf {
 
     var gawa_re="2"
     var gawa_vpn_pop="1"
-    var gawa_ab=""
+    var gawa_ab="80"
+    var planType=""
 }

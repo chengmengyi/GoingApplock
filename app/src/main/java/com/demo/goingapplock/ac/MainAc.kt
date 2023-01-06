@@ -5,11 +5,11 @@ import android.content.Intent
 import android.view.KeyEvent
 import android.view.animation.LinearInterpolator
 import androidx.core.animation.doOnEnd
-import com.blankj.utilcode.util.ActivityUtils
 import com.demo.goingapplock.R
 import com.demo.goingapplock.ac.vpn.VpnHomeAc
 import com.demo.goingapplock.ad.AdSpace
 import com.demo.goingapplock.ad.AdUtils
+import com.demo.goingapplock.ad.RefreshAdManager
 import com.demo.goingapplock.base.BaseAc
 import com.demo.goingapplock.cache.GoingCache
 import com.demo.goingapplock.cache.MmkvData
@@ -27,6 +27,7 @@ class MainAc : BaseAc() {
 
     override fun onView() {
         loadAd()
+        RefreshAdManager.resetMap()
         startProgress()
     }
 
@@ -54,7 +55,7 @@ class MainAc : BaseAc() {
     private fun checkPlanType(){
         if (MmkvData.isFirstLoad()){
             MmkvData.setFirstLoad()
-            showVpnDialog()
+            doPlanB()
             return
         }
         if (!MmkvData.readLocalReferrer().isBuyUser()){
@@ -63,11 +64,11 @@ class MainAc : BaseAc() {
             return
         }
         MmkvData.randomPlanType()
-        PointManager.setUser(GoingConf.gawa_ab.toLowerCase())
+        PointManager.setUser(GoingConf.planType.toLowerCase())
         if (ConnectManager.connected()){
             toHomeAc()
         }else{
-            if (GoingConf.gawa_ab=="A"){
+            if (GoingConf.planType=="A"){
                 doPlanA()
             }else{
                 doPlanB()

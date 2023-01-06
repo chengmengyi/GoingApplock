@@ -106,7 +106,6 @@ class GoingApp : Application() {
                 if (gawa_ab.isNotEmpty()){
                     GoingConf.gawa_ab=gawa_ab
                 }
-
             }
     }
 

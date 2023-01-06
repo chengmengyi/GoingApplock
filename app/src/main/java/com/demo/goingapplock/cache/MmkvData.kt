@@ -1,6 +1,7 @@
 package com.demo.goingapplock.cache
 
 import com.demo.goingapplock.conf.GoingConf
+import com.demo.goingapplock.str2int
 import com.tencent.mmkv.MMKV
 import java.text.SimpleDateFormat
 import java.util.*
@@ -31,15 +32,14 @@ object MmkvData {
         MMKV.defaultMMKV().encode("first",false)
     }
 
-    fun randomPlanType(){
-        if (GoingConf.gawa_ab.isEmpty()){
-            val gawa_ab = MMKV.defaultMMKV().decodeString("gawa_ab") ?: ""
-            if (gawa_ab.isEmpty()){
+    fun randomPlanType() {
+        if (GoingConf.planType.isEmpty()){
+            if (GoingConf.gawa_ab.isEmpty()){
                 val nextInt = Random().nextInt(100)
-                GoingConf.gawa_ab=if (nextInt>20) "B" else "A"
-                MMKV.defaultMMKV().encode("gawa_ab",gawa_ab)
+                GoingConf.planType=if (nextInt>20) "B" else "A"
             }else{
-                GoingConf.gawa_ab=gawa_ab
+                val nextInt = Random().nextInt(100)
+                GoingConf.planType=if (str2int(GoingConf.gawa_ab)>=nextInt) "B" else "A"
             }
         }
     }
